@@ -3,8 +3,12 @@ data "aws_availability_zones" "available" {
 }
 
 data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
 
 locals {
+  account_id = data.aws_caller_identity.current.account_id
+  region     = data.aws_region.current.name
+
   name = "reireias2021"
 
   # availability_zones = toset(data.aws_availability_zones.available.names)
@@ -27,4 +31,8 @@ locals {
   }
 
   vpc_cidr = "10.0.0.0/16"
+
+  secrets = {
+    rails_master_key = "AQICAHhxcOHhVzL2EwWj90RRTdMZ0MYnfo0ER2g2xA6XxvsuMQG7TKaXX+Cl/gDQaU1KN1tJAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMXCj237k7rHqYDLqTAgEQgDvttnqzO/W7uotcXvenQpTsPDyqNExxRKvvdnCozhyhwlo+dfdfsY18PJSqabsdBvZR+llfrKJq/avWzQ=="
+  }
 }
