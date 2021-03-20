@@ -2,6 +2,7 @@
 # tfsec:ignore:AWS002
 resource "aws_s3_bucket" "logs" {
   bucket = "${local.name}.logs"
+  acl    = "log-delivery-write"
 
   server_side_encryption_configuration {
     rule {

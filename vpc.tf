@@ -39,3 +39,34 @@ resource "aws_nat_gateway" "nat" {
 
   depends_on = [aws_internet_gateway.igw]
 }
+
+resource "aws_vpc_endpoint" "s3" {
+  vpc_id            = aws_vpc.main.id
+  service_name      = data.aws_vpc_endpoint_service.s3.service_name
+  vpc_endpoint_type = "Gateway"
+
+  tags = {
+    Name = "${local.name}-s3"
+  }
+}
+
+data "aws_vpc_endpoint_service" "s3" {
+  service      = "s3"
+  service_type = "Gateway"
+}
+
+resource "aws_vpc_endpoint" "dkr" {
+  vpc_id             = aws_vpc.main.id
+  service_name       = data.aws_vpc_endpoint_service.dkr.service_name
+  vpc_endpoint_type  = "Interface"
+  security_group_ids = [aws_security_group.vpce_dkr.id]
+  subnet_ids         = [for _, v in aws_subnet.codebuild : v.id]
+
+  tags = {
+    Name = "${local.name}-dkr"
+  }
+}
+
+data "aws_vpc_endpoint_service" "dkr" {
+  service = "ecr.dkr"
+}
