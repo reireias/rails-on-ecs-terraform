@@ -60,7 +60,7 @@ resource "aws_vpc_endpoint" "dkr" {
   service_name       = data.aws_vpc_endpoint_service.dkr.service_name
   vpc_endpoint_type  = "Interface"
   security_group_ids = [aws_security_group.vpce_dkr.id]
-  subnet_ids         = [for _, v in aws_subnet.codebuild : v.id]
+  subnet_ids         = [for _, v in aws_subnet.ecs : v.id]
 
   tags = {
     Name = "${local.name}-dkr"
