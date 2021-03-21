@@ -4,16 +4,18 @@ data "aws_availability_zones" "available" {
 
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
+data "aws_elb_service_account" "main" {}
 
 locals {
   account_id = data.aws_caller_identity.current.account_id
   region     = data.aws_region.current.name
 
-  name = "reireias2021"
+  name   = "reireias2021"
+  domain = "reireias.link"
 
   # availability_zones = toset(data.aws_availability_zones.available.names)
   # NOTE: for debug with low cost
-  availability_zones = toset(["ap-northeast-1a"])
+  availability_zones = toset(["ap-northeast-1a", "ap-northeast-1c"])
 
   az_conf = {
     "ap-northeast-1a" = {

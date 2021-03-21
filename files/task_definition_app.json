@@ -1,0 +1,41 @@
+{
+  "family": "${family}",
+  "taskRoleArn": "${task_role_arn}",
+  "executionRoleArn": "${execution_role_arn}",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "containerDefinitions": [
+    {
+      "name": "web",
+      "image": "#IMAGE#",
+      "portMappings": [
+        {
+          "hostPort": 3000,
+          "containerPort": 3000
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "${log_group}",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "web"
+        }
+      },
+      "environment": [
+        {
+          "name": "RAILS_LOG_TO_STDOUT",
+          "value": "1"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "RAILS_MASTER_KEY",
+          "valueFrom": "${ssm_rails_master_key_name}"
+        }
+      ]
+    }
+  ]
+}
