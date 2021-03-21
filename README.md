@@ -3,6 +3,8 @@
 # rails-on-ecs-terraform
 Terraform Code for Rails on AWS ECS.
 
+Rails Repository: [reireias/rails-on-ecs](https://github.com/reireias/rails-on-ecs)
+
 ## Secrets with KMS
 - Encrypt with KMS key.
   ```console
