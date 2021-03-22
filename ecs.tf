@@ -33,10 +33,6 @@ resource "aws_ecs_task_definition" "app" {
     },
     "environment": [
       {
-        "name": "NGINX_HOTS",
-        "value": "${aws_lb.app.dns_name}"
-      },
-      {
         "name": "NGINX_PORT",
         "value": "3000"
       },
