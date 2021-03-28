@@ -27,6 +27,8 @@ data "aws_iam_policy_document" "ecs" {
     ]
     resources = [
       aws_ssm_parameter.rails_master_key.arn,
+      aws_ssm_parameter.database_url.arn,
+      aws_ssm_parameter.reader_database_url.arn,
     ]
   }
 }

@@ -36,5 +36,6 @@ locals {
 
   secrets = {
     rails_master_key = "AQICAHhxcOHhVzL2EwWj90RRTdMZ0MYnfo0ER2g2xA6XxvsuMQG7TKaXX+Cl/gDQaU1KN1tJAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMXCj237k7rHqYDLqTAgEQgDvttnqzO/W7uotcXvenQpTsPDyqNExxRKvvdnCozhyhwlo+dfdfsY18PJSqabsdBvZR+llfrKJq/avWzQ=="
+    db_password      = "AQICAHhxcOHhVzL2EwWj90RRTdMZ0MYnfo0ER2g2xA6XxvsuMQFB0W6mUq7CGTRpuJRU1JtdAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMtgf9ZvOZseWDcZlFAgEQgDtFlv+fobkyI4t3Jm4cqfvgpKumuCcT3Ep/UcjdJmUOIvhUKxILJA7Uwg9Z3MDY2HoGmrQuLaM18n4uAQ=="
   }
 }

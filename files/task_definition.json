@@ -9,7 +9,7 @@
   "containerDefinitions": [
     {
       "name": "web",
-      "image": "#IMAGE#",
+      "image": "<IMAGE1_NAME>",
       "portMappings": [
         {
           "hostPort": 3000,
@@ -34,6 +34,14 @@
         {
           "name": "RAILS_MASTER_KEY",
           "valueFrom": "${ssm_rails_master_key_name}"
+        },
+        {
+          "name": "DATABASE_URL",
+          "valueFrom": "${ssm_database_url_name}"
+        },
+        {
+          "name": "READER_DATABASE_URL",
+          "valueFrom": "${ssm_reader_database_url_name}"
         }
       ]
     }

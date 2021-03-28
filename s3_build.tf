@@ -44,20 +44,22 @@ data "aws_iam_policy_document" "build_bucket" {
   }
 }
 
-resource "aws_s3_bucket_object" "task_definition_app" {
+resource "aws_s3_bucket_object" "task_definition" {
   bucket = aws_s3_bucket.build.id
-  key    = "task_definition_app.json"
-  content = templatefile("files/task_definition_app.json", {
-    family                    = aws_ecs_task_definition.app.family
-    task_role_arn             = aws_iam_role.ecs_task.arn
-    execution_role_arn        = aws_iam_role.ecs.arn
-    ssm_rails_master_key_name = aws_ssm_parameter.rails_master_key.name
-    log_group                 = aws_cloudwatch_log_group.app.name
-    region                    = local.region
+  key    = "task_definition.json"
+  content = templatefile("files/task_definition.json", {
+    family                       = aws_ecs_task_definition.app.family
+    task_role_arn                = aws_iam_role.ecs_task.arn
+    execution_role_arn           = aws_iam_role.ecs.arn
+    ssm_rails_master_key_name    = aws_ssm_parameter.rails_master_key.name
+    ssm_database_url_name        = aws_ssm_parameter.database_url.name
+    ssm_reader_database_url_name = aws_ssm_parameter.reader_database_url.name
+    log_group                    = aws_cloudwatch_log_group.app.name
+    region                       = local.region
   })
 }
 
-resource "aws_s3_bucket_object" "app_spec" {
+resource "aws_s3_bucket_object" "appspec" {
   bucket  = aws_s3_bucket.build.id
   key     = "appspec.yml"
   content = file("files/appspec.yml")
