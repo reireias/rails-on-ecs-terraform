@@ -18,3 +18,12 @@ data "aws_kms_secrets" "secrets" {
     }
   }
 }
+
+resource "aws_kms_key" "rds" {
+  enable_key_rotation = true
+}
+
+resource "aws_kms_alias" "rds" {
+  name          = "alias/rds"
+  target_key_id = aws_kms_key.rds.key_id
+}

@@ -1,0 +1,27 @@
+version: 0.2
+
+env:
+  parameter-store:
+    RAILS_MASTER_KEY: ${ssm_rails_master_key_name}
+    DATABASE_URL: ${ssm_database_url_name}
+
+phases:
+  pre_build:
+    commands:
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin ${account_id}.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+  build:
+    commands:
+      # TODO: remove
+      - cat imageDetail.json
+      - IMAGE=$(cat imageDetail.json | jq -r '.ImageURI')
+
+      # NOTE: execute db:migrate
+      - docker run --rm -e RAILS_MASTER_KEY -e DATABASE_URL $IMAGE rails db:migrate || echo "ok"
+
+      - aws s3 cp s3://${bucket}/${task_definition_key} ./task_definition.json
+      - aws s3 cp s3://${bucket}/${appspec_key} ./appspec.yml
+
+artifacts:
+  files:
+    - task_definition.json
+    - appspec.yml

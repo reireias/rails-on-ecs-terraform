@@ -89,4 +89,6 @@ resource "aws_ecs_service" "app" {
       load_balancer,
     ]
   }
+
+  depends_on = [aws_lb_listener_rule.app_from_cloudfront]
 }
