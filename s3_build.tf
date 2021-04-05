@@ -9,6 +9,10 @@ resource "aws_s3_bucket" "build" {
     }
   }
 
+  versioning {
+    enabled = true
+  }
+
   logging {
     target_bucket = aws_s3_bucket.logs.id
     target_prefix = "s3/${local.name}.build/"
