@@ -2,7 +2,20 @@
 # tfsec:ignore:AWS002
 resource "aws_s3_bucket" "logs" {
   bucket = "${local.name}.logs"
-  acl    = "log-delivery-write"
+
+  grant {
+    id          = data.aws_canonical_user_id.current.id
+    permissions = ["FULL_CONTROL"]
+    type        = "CanonicalUser"
+  }
+
+  grant {
+    # Grant CloudFront logs access to your Amazon S3 Bucket
+    # https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#AccessLogsBucketAndFileOwnership
+    id          = "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0"
+    permissions = ["FULL_CONTROL"]
+    type        = "CanonicalUser"
+  }
 
   server_side_encryption_configuration {
     rule {
