@@ -44,7 +44,7 @@ resource "aws_lb_listener_rule" "app_from_cloudfront" {
   condition {
     http_header {
       http_header_name = "x-pre-shared-key"
-      values           = ["TODO"]
+      values           = [data.aws_kms_secrets.secrets.plaintext["cloudfront_shared_key"]]
     }
   }
 
