@@ -23,6 +23,8 @@ resource "aws_cloudfront_distribution" "main" {
 
   aliases = [local.domain]
 
+  web_acl_id = aws_wafv2_web_acl.cloudfront.arn
+
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
