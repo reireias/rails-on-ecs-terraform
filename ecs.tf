@@ -59,7 +59,7 @@ resource "aws_ecs_service" "app" {
   }
 
   network_configuration {
-    subnets         = [for _, v in aws_subnet.ecs : v.id]
+    subnets         = values(aws_subnet.ecs)[*].id
     security_groups = [aws_security_group.ecs.id]
   }
 

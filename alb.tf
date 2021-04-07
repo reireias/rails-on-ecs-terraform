@@ -3,7 +3,7 @@ resource "aws_lb" "app" {
   # NOTE: allow from internet
   # tfsec:ignore:AWS005
   internal        = false
-  subnets         = [for _, v in aws_subnet.public : v.id]
+  subnets         = values(aws_subnet.public)[*].id
   security_groups = [aws_security_group.alb.id]
 
   enable_deletion_protection = false

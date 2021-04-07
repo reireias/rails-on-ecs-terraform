@@ -112,7 +112,7 @@ data "aws_iam_policy_document" "codebuild" {
     condition {
       test     = "StringEquals"
       variable = "ec2:Subnet"
-      values   = [for _, v in aws_subnet.codebuild : v.arn]
+      values   = values(aws_subnet.codebuild)[*].arn
     }
 
     condition {
