@@ -71,9 +71,7 @@ resource "aws_cloudfront_distribution" "main" {
     compress               = true
   }
 
-  # TODO: debug
-  # price_class = "PriceClass_All"
-  price_class = "PriceClass_100"
+  price_class = "PriceClass_All"
 
   restrictions {
     geo_restriction {

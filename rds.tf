@@ -12,19 +12,14 @@ resource "aws_rds_cluster" "main" {
   kms_key_id              = aws_kms_key.rds.arn
   db_subnet_group_name    = aws_db_subnet_group.main.id
   vpc_security_group_ids  = [aws_security_group.rds.id]
+  deletion_protection     = true
+  skip_final_snapshot     = false
 
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.main.id
-
-  # TODO: debug
-  deletion_protection = false
-  skip_final_snapshot = true
-  lifecycle {
-    ignore_changes = [availability_zones]
-  }
 }
 
 resource "aws_rds_cluster_instance" "main" {
-  count = 1 # TODO: 2
+  count = 2
 
   identifier              = "${local.name}-${count.index}"
   cluster_identifier      = aws_rds_cluster.main.id

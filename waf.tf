@@ -13,6 +13,10 @@ resource "aws_wafv2_web_acl" "cloudfront" {
     name     = "crs"
     priority = 1
 
+    override_action {
+      none {}
+    }
+
     statement {
       managed_rule_group_statement {
         name        = "AWSManagedRulesCommonRuleSet"
@@ -30,6 +34,10 @@ resource "aws_wafv2_web_acl" "cloudfront" {
   rule {
     name     = "sqli"
     priority = 2
+
+    override_action {
+      none {}
+    }
 
     statement {
       managed_rule_group_statement {
