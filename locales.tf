@@ -14,9 +14,7 @@ locals {
   name   = "reireias2021"
   domain = "reireias.link"
 
-  # availability_zones = toset(data.aws_availability_zones.available.names)
-  # NOTE: for debug with low cost
-  availability_zones = toset(["ap-northeast-1a", "ap-northeast-1c"])
+  availability_zones = toset(data.aws_availability_zones.available.names)
 
   az_conf = {
     "ap-northeast-1a" = {

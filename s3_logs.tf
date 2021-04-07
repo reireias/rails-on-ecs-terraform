@@ -17,6 +17,15 @@ resource "aws_s3_bucket" "logs" {
     type        = "CanonicalUser"
   }
 
+  grant {
+    uri = "http://acs.amazonaws.com/groups/s3/LogDelivery"
+    permissions = [
+      "READ_ACP",
+      "WRITE",
+    ]
+    type = "Group"
+  }
+
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
