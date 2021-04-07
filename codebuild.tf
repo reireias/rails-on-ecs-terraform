@@ -41,6 +41,6 @@ resource "aws_codebuild_project" "build" {
   vpc_config {
     vpc_id             = aws_vpc.main.id
     security_group_ids = [aws_security_group.codebuild.id]
-    subnets            = [for _, v in aws_subnet.codebuild : v.id]
+    subnets            = values(aws_subnet.codebuild)[*].id
   }
 }
