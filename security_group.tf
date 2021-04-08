@@ -137,6 +137,16 @@ resource "aws_security_group_rule" "codebuild_egress" {
   security_group_id = aws_security_group.codebuild.id
 }
 
+resource "aws_security_group_rule" "vpce_dkr_from_ecs" {
+  description              = "Allow HTTPS from Security Group for ECS."
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.ecs.id
+  security_group_id        = aws_security_group.vpce_dkr.id
+}
+
 resource "aws_security_group_rule" "vpce_dkr_from_codebuild" {
   description              = "Allow HTTPS from Security Group for CodeBuild."
   type                     = "ingress"
